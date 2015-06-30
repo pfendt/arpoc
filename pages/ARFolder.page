@@ -27,12 +27,13 @@ function closeWindow()
       </apex:pageBlockButtons>
    
       <apex:pageBlockSection columns="1">
-             <apex:inputField value="{!folder.Name}" label="Folder Name" required="true"/> 
-             <apex:inputField value="{!folder.Initiative__c}"/> 
+            <apex:inputField value="{!folder.Name}" label="Folder Name" required="true"/> 
+            <apex:inputField value="{!folder.Initiative__c}"/> 
+            <apex:inputField value="{!aro.Name}" label="AR Name"/> 
       </apex:pageBlockSection>
 
    </apex:pageBlock>
    
-   <apex:actionFunction action="{!saveFolder}" name="saveFolderJS" onbeforedomupdate="closeWindow();" rerender="THEBLOCK" />
+   <apex:actionFunction action="{!saveFolder}" name="saveFolderJS" onbeforedomupdate="closeWindow();" rerender="theForm" />
   </apex:form>
 </apex:page>

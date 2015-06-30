@@ -31,8 +31,8 @@ public class ARController
     public PageReference saveFolder()
     {
         PageReference pr;
-		Database.SaveResult sr;
-		Database.Error[] errors;
+        Database.SaveResult sr;
+        Database.Error[] errors;
         
         try
         {
@@ -53,7 +53,7 @@ public class ARController
                 }      
                 
                 folderID = sr.getId();                
-                folder = [SELECT Id, Name FROM ConfidentialFolder__c WHERE Id =: folderID];
+                folder = [SELECT Id, Name, Initiative__c FROM ConfidentialFolder__c WHERE Id =: folderID];
                 
                 aro.Confidential_Folder__c = folderID;
                 sr = Database.insert(aro);                
@@ -64,13 +64,11 @@ public class ARController
                     return null; 
                 } 
                 
+            	ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.INFO, 'Successfully added folder.'));
                 pr = new ApexPages.StandardController(folder).view();
             }
             else if (campaign != null)
-            {
                 pr = new ApexPages.StandardController(campaign).view();
-            }
-
         }
         catch (Exception e)
         {
@@ -80,7 +78,6 @@ public class ARController
             return null;            
         }
         
-        pr.setRedirect(true);
-        return pr;
+        return null;
     }
 }
