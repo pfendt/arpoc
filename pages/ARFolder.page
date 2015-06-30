@@ -1,0 +1,38 @@
+<apex:page standardController="ConfidentialFolder__c" extensions="ARController">
+<script>
+function reloadParentAndClose()
+{
+    // reload the opener or the parent window
+    //console.log(navigator.browserInfo.browser);
+    window.opener.location.reload();
+    // then close this pop-up window
+    window.close();
+} 
+function closeWindow() 
+{ 
+    //console.log(navigator.browserInfo.browser); 
+    window.opener.location.reload(); 
+    window.close();
+}
+</script>
+  <apex:form id="theForm">
+   <apex:pageMessages />
+    
+   <apex:pageBlock title="New Confidential Folder">
+      
+      <apex:pageBlockButtons location="bottom" id="THEBLOCK">
+          <apex:commandButton ID="FOLDERBUTTON" onclick="saveFolderJS();alert('Successfully created folder');reloadParentAndClose();return false;" oncomplete="closeWindow();" value="Save" rendered="{!NOT(confidential)}"/> &nbsp; &nbsp;
+          <apex:commandButton onclick="saveFolderJS();return false;"  value="Save" rendered="{!confidential}"/> &nbsp; &nbsp; 
+          <apex:commandButton onclick="closeWindow();" value="Cancel"/>
+      </apex:pageBlockButtons>
+   
+      <apex:pageBlockSection columns="1">
+             <apex:inputField value="{!folder.Name}" label="Folder Name" required="true"/> 
+             <apex:inputField value="{!folder.Initiative__c}"/> 
+      </apex:pageBlockSection>
+
+   </apex:pageBlock>
+   
+   <apex:actionFunction action="{!saveFolder}" name="saveFolderJS" onbeforedomupdate="closeWindow();" rerender="THEBLOCK" />
+  </apex:form>
+</apex:page>
